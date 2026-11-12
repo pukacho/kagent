@@ -9,7 +9,7 @@ Upstream `v0.10.2` plus Anthropic prompt caching, until Skanyxx moves to an upst
 | Base | tag `v0.10.2` |
 | Patch | upstream PR [#2789](https://github.com/kagent-dev/kagent/pull/2789) (backport of #2788, closed unmerged): commits `feat(models): add prompt caching for the Anthropic provider`, `test(adk): deep-copy caller objects …` |
 | Version | `0.10.2-skanyxx.1` |
-| Images | `ghcr.io/skanyxx/kagent/{controller,golang-adk,kagent-adk,app}:<version>` |
+| Images | `ghcr.io/skanyxx/kagent/controller:<version>`; `golang-adk`, `kagent-adk`, `app` at `<version>` and `<version>-full` (kagent picks `-full` for agents with skills or code execution) |
 | Chart | `oci://ghcr.io/skanyxx/kagent/helm/kagent-crds` (upstream's `kagent` chart is used unchanged, with the images above) |
 
 What the patch adds: `ModelConfig.spec.anthropic.promptCaching` (bool) and `cacheTTL` (`5m` | `1h`). When on, every
@@ -24,5 +24,8 @@ hack/skanyxx/release.sh                 # local images (this machine's platform)
 PUSH=true hack/skanyxx/release.sh       # amd64+arm64 images and the chart, pushed (docker/helm login to ghcr.io first)
 ```
 
-A new fork release bumps `VERSION` in the script (`0.10.2-skanyxx.N`) and the pins in Skanyxx
-(`deploy/helm/skanyxx/Chart.yaml`, `values.yaml`, `scripts/dev/kagent-values.yaml`, `scripts/dev/first-hour.sh`).
+A published version is never pushed again (the script refuses it, and a dirty tree). A new fork release bumps `VERSION`
+in the script (`0.10.2-skanyxx.N`) and the pins in Skanyxx (`deploy/helm/skanyxx/Chart.yaml` + `helm dependency update`
+for `Chart.lock`, `values.yaml`, `scripts/dev/kagent-values.yaml`, `scripts/dev/first-hour.sh`); the controller is
+pinned as `<version>@<digest>` with the digest the script prints. The runtime images stay tag-only: kagent appends
+`-full` to their tag.
