@@ -28,7 +28,7 @@ if [[ $PUSH == true ]]; then
   fi
   OUTPUT=(--platform linux/amd64,linux/arm64 --push)
 else
-  OUTPUT=(--load)
+  OUTPUT=(--builder "$(docker context show)" --load)
 fi
 
 build() { # image tag, context, dockerfile, extra args…
