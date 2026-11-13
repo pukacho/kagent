@@ -9,8 +9,8 @@ Upstream `v0.10.2` plus Anthropic prompt caching, until Skanyxx moves to an upst
 | Base | tag `v0.10.2` |
 | Patch | upstream PR [#2789](https://github.com/kagent-dev/kagent/pull/2789) (backport of #2788, closed unmerged): commits `feat(models): add prompt caching for the Anthropic provider`, `test(adk): deep-copy caller objects …` |
 | Version | `0.10.2-skanyxx.1` |
-| Images | `ghcr.io/skanyxx/kagent/controller:<version>`; `golang-adk`, `kagent-adk`, `app` at `<version>` and `<version>-full` (kagent picks `-full` for agents with skills or code execution) |
-| Chart | `oci://ghcr.io/skanyxx/kagent/helm/kagent-crds` (upstream's `kagent` chart is used unchanged, with the images above) |
+| Images | `ghcr.io/pukacho/kagent/controller:<version>`; `golang-adk`, `kagent-adk`, `app` at `<version>` and `<version>-full` (kagent picks `-full` for agents with skills or code execution) |
+| Chart | `oci://ghcr.io/pukacho/kagent/helm/kagent-crds` (upstream's `kagent` chart is used unchanged, with the images above) |
 
 What the patch adds: `ModelConfig.spec.anthropic.promptCaching` (bool) and `cacheTTL` (`5m` | `1h`). When on, every
 Messages API request marks the last tool, the last system block and the last block of the latest turn with

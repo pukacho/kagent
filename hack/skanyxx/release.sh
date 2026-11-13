@@ -9,7 +9,7 @@ cd "$(dirname "$0")/../.."
 
 VERSION=${VERSION:-0.10.2-skanyxx.1}
 REGISTRY=${REGISTRY:-ghcr.io}
-REPO=${REPO:-skanyxx/kagent}
+REPO=${REPO:-pukacho/kagent}
 PUSH=${PUSH:-false}
 KMCP_VERSION=0.3.0
 SUBSTRATE_VERSION=0.0.9
